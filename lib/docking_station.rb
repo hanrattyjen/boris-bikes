@@ -9,6 +9,7 @@ class DockingStation
 	end
 
 	def dock(bike)
+		fail 'Docking station full' if @bike
 		# use an instance variable to store the bike in the 'state' of this instance
 		@bike = bike
 	end
