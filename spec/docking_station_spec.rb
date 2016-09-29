@@ -14,6 +14,11 @@ describe DockingStation do
 
   it {is_expected.to respond_to(:dock).with(1).argument}
 
+  it 'allows user to set docking station capacity upon initialisation' do
+    station = DockingStation.new(30)
+    expect(station.capacity).to eq 30
+  end
+
   it 'bike is docked' do
     bike = Bike.new
     expect(subject.dock(bike)).to eq [bike]
@@ -42,7 +47,7 @@ describe DockingStation do
 
   describe "#dock" do
     it "raises an error when dock is full" do
-      
+
       expect { (DockingStation::DEFAULT_CAPACITY+1).times {subject.dock(Bike.new) } }.to raise_error("Dock is full")
     end
 
