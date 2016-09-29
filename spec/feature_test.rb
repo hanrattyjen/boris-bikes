@@ -6,3 +6,9 @@ puts station = DockingStation.new
 puts bike = Bike.new
 station.dock(bike)
 puts station.release_bike
+
+puts
+puts "Testing Full capacity using constant"
+20.times {station.dock(Bike.new)}
+puts station.dock(Bike.new)
+
