@@ -4,13 +4,6 @@ describe DockingStation do
 
   it { is_expected.to respond_to :release_bike}
 
-#release_bike returns a new instance of the Bike class
-#a) gets a bike, and then b) expects the bike to be working
-
-#it 'release a bike' do
-#    bike = subject.release_bike
-#    expect(bike).to be_working
-#end
 
   it {is_expected.to respond_to(:dock).with(1).argument}
 
@@ -63,12 +56,30 @@ describe DockingStation do
     it 'raises an error when there are no bikes available' do
       expect { subject.release_bike }.to raise_error('No bikes available')
     end
+    
+    it 'raises an error if someone tries to release a broken bike' do
+      #bike2 = Bike.new
+      #subject.dock(bike2)
+      bike = Bike.new
+      bike.report_broken
+      subject.dock(bike)
+      expect {subject.release_bike}.to raise_error("No bikes available")
+    end
+    
   end
 
   describe "#dock" do
     it "raises an error when dock is full" do
       expect { (subject.capacity+1).times {subject.dock(Bike.new) } }.to raise_error("Dock is full")
     end
+    
+    it 'allow a broken bike to be docked' do
+      bike = Bike.new
+      bike.report_broken
+      subject.dock(bike)
+      expect(bike).to be_broken 
+    end
+    
 
   end
 end
