@@ -29,7 +29,7 @@ class DockingStation
   private
 
   def full?
-    bikes.count >= capacity
+    (bikes.count + broken_bikes.count) >= capacity
   end
 
   def empty?
